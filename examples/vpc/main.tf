@@ -1,6 +1,6 @@
 module "aws_es" {
 
-  source = "lgallard/elasticsearch/aws"
+  source = "../../"
 
   domain_name           = var.es_domain_name
   elasticsearch_version = var.es_version
