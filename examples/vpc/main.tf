@@ -1,6 +1,7 @@
 module "aws_es" {
 
-  source = "lgallard/elasticsearch/aws"
+  # source = "lgallard/elasticsearch/aws"
+  source = "../../"
 
   domain_name           = var.es_domain_name
   elasticsearch_version = var.es_version
@@ -23,9 +24,14 @@ module "aws_es" {
     kms_key_id = "alias/aws/es"
   }
 
+  domain_endpoint_options = {
+    enforce_https       = true
+    tls_security_policy = "Policy-Min-TLS-1-0-2019-07"
+  }
+
   vpc_options = {
-    subnet_ids         = ["subnet-09999999999999999", "subnet-02222222222222222", "subnet-05555555555555555"]
-    security_group_ids = ["sg-03333333333333333"]
+    subnet_ids         = ["subnet-02f7242d", "subnet-5438a41f", "subnet-5ae63207"]
+    security_group_ids = ["sg-f4bc0a81"]
   }
 
   node_to_node_encryption_enabled                = true

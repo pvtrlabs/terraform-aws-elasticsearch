@@ -288,3 +288,10 @@ variable "create_service_link_role" {
   type        = bool
   default     = true
 }
+
+# domain_endpoint_options
+variable "domain_endpoint_options" {
+  description = "Require that all traffic be submitted over HTTPS"
+  type        = map(string)
+  default     = {}
+}

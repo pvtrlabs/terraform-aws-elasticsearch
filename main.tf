@@ -37,6 +37,15 @@ resource "aws_elasticsearch_domain" "es_domain" {
     }
   }
 
+  # domain_endpoint_options
+  dynamic "domain_endpoint_options" {
+    for_each = local.domain_endpoint_options
+    content {
+      enforce_https       = lookup(domain_endpoint_options.value, "enforce_https")
+      tls_security_policy = lookup(domain_endpoint_options.value, "tls_security_policy")
+    }
+  }
+
   # encrypt_at_rest
   dynamic "encrypt_at_rest" {
     for_each = local.encrypt_at_rest
@@ -169,6 +178,15 @@ locals {
   }
 
   encrypt_at_rest = var.encrypt_at_rest_enabled == false || lookup(local.encrypt_at_rest_default, "enabled", false) == false ? [] : [local.encrypt_at_rest_default]
+
+  # domain_endpoint_options - https disabled by default
+  domain_endpoint_options_default = {
+    enforce_https       = lookup(var.domain_endpoint_options, "enforce_https", null)
+    tls_security_policy = lookup(var.domain_endpoint_options, "tls_security_policy", null)
+  }
+
+  # If `enforce_https` was specified in the map (the only required param) then yield the content. No need for additional enable_* parameters.
+  domain_endpoint_options = lookup(local.domain_endpoint_options_default, "enforce_https", null) == null ? [] : [local.domain_endpoint_options_default]
 
   # node_to_node_encryption
   # If no node_to_node_encryption list is provided, build a node_to_node_encryption using the default values
