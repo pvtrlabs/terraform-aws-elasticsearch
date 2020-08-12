@@ -13,7 +13,7 @@ Check the [examples](/examples/) folder where you can see how to configure a pub
 
 You can use this module to create your Amazon ES cluster by defining each parameters blocks as follows:
 
-```
+```terraform
 module "aws_es" {
 
   source = "git::https://github.com/lgallard/terraform-aws-elasticsearch.git"
@@ -60,7 +60,7 @@ module "aws_es" {
 
 **Note:** You can also define the above ElasticSearch cluster using just the module variables. Instead of defining a `cluster_config` block (list of map), you can set each of the `cluster_config_*` variables, as shown below:
 
-```
+```terraform
 module "aws_es" {
 
   source = "git::https://github.com/lgallard/terraform-aws-elasticsearch.git"
@@ -94,8 +94,9 @@ module "aws_es" {
     Owner = "sysops"
     env   = "dev"
   }
-
 ```
+
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Providers
 
 | Name | Version |
@@ -105,7 +106,7 @@ module "aws_es" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+|------|-------------|------|---------|:-----:|
 | access\_policies | IAM policy document specifying the access policies for the domain | `string` | `""` | no |
 | advanced\_options | Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your Elasticsearch domain on every apply | `map(string)` | `{}` | no |
 | advanced\_security\_options | Options for fine-grained access control | `any` | `{}` | no |
@@ -128,6 +129,7 @@ module "aws_es" {
 | cognito\_options\_role\_arn | ARN of the IAM role that has the AmazonESCognitoAccess policy attached | `string` | `""` | no |
 | cognito\_options\_user\_pool\_id | ID of the Cognito User Pool to use | `string` | `""` | no |
 | create\_service\_link\_role | Create service link role for AWS Elasticsearch Service | `bool` | `true` | no |
+| domain\_endpoint\_options | Require that all traffic be submitted over HTTPS | `map(string)` | `{}` | no |
 | domain\_name | Name of the domain | `string` | n/a | yes |
 | ebs\_enabled | Whether EBS volumes are attached to data nodes in the domain | `bool` | `true` | no |
 | ebs\_options | EBS related options, may be required based on chosen instance size | `map` | `{}` | no |
@@ -148,7 +150,7 @@ module "aws_es" {
 | snapshot\_options\_automated\_snapshot\_start\_hour | Hour during which the service takes an automated daily snapshot of the indices in the domain | `number` | `0` | no |
 | tags | A mapping of tags to assign to the resource | `map` | `{}` | no |
 | timeouts | Timeouts map. | `map` | `{}` | no |
-| timeouts\_update | How long to wait for updates. | `string` | n/a | no |
+| timeouts\_update | How long to wait for updates. | `string` | n/a | yes |
 | vpc\_options | VPC related options, see below. Adding or removing this configuration forces a new resource | `map` | `{}` | no |
 | vpc\_options\_security\_group\_ids | List of VPC Security Group IDs to be applied to the Elasticsearch domain endpoints. If omitted, the default Security Group for the VPC will be used | `list` | `[]` | no |
 | vpc\_options\_subnet\_ids | List of VPC Subnet IDs for the Elasticsearch domain endpoints to be created in | `list` | `[]` | no |
@@ -163,3 +165,5 @@ module "aws_es" {
 | kibana\_endpoint | Domain-specific endpoint for kibana without https scheme |
 | vpc\_options\_availability\_zones | If the domain was created inside a VPC, the names of the availability zones the configured subnet\_ids were created inside |
 | vpc\_options\_vpc\_id | If the domain was created inside a VPC, the ID of the VPC |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

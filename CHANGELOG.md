@@ -1,3 +1,11 @@
+# 0.4.1 (August 10, 2020)
+
+ENHANCMENTS:
+
+* Add `domain_endpoint_options` block
+* Updated [examples/vpc](./examples/vpc) example with `domain_endpoint_options` usage. Also that example points out to local module code now.
+* Added pre-commit hooks
+
 ## 0.4.0 (July 15, 2020)
 
 ENHANCEMENTS:
@@ -15,7 +23,6 @@ FIXES:
 
 * Add Service Link role creation flag (default to `true`)
 
-
 ## 0.2.1 (May 2, 2020)
 
 UPDATE:
@@ -31,7 +38,6 @@ ENHANCEMENTS:
 UPDATES:
 
 * Update public and vpc examples
-
 
 ## 0.1.2 (April 1, 2020)
 
